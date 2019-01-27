@@ -12,6 +12,12 @@ Gallery view for Image and Video in Android.
   Video Preview
   
   Video Play/Pause Control with Full Screen
+  
+  
+## How to
+To get a Git project into your build:
+
+### Step 1. Add the JitPack repository to your build file
 
 Add it in your root build.gradle at the end of repositories:
 
@@ -21,7 +27,7 @@ Add it in your root build.gradle at the end of repositories:
 			maven { url 'https://jitpack.io' }
 		}
 	}
-Step 2. Add the dependency
+### Step 2. Add the dependency
 
 	dependencies {
 	        implementation 'com.github.sheetalkumar105:androidimagevideogallery:1.01'
