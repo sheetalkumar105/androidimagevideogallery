@@ -1,7 +1,7 @@
 # androidimagevideogallery
 Gallery view for Image and Video in Android.
 
-Features
+## Features:
 
   Image View
   
@@ -28,7 +28,7 @@ Step 2. Add the dependency
 	}
 
 
-Preview:
+## Preview:
 
 ![Sample Home](https://raw.githubusercontent.com/sheetalkumar105/androidimagevideogallery/master/assets/screen1.jpeg)
 
