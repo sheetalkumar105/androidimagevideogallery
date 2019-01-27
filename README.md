@@ -33,6 +33,14 @@ Add it in your root build.gradle at the end of repositories:
 	        implementation 'com.github.sheetalkumar105:androidimagevideogallery:1.01'
 	}
 
+### Step 3. Use where you want to show gallery
+	
+	 ArrayList<String> paths = new ArrayList<>();
+	 paths.add("Path1");
+	 paths.add("Path2");
+	 paths.add("Path3");
+	 GalleryView.show(this,paths);
+	 
 
 ## Preview:
 
