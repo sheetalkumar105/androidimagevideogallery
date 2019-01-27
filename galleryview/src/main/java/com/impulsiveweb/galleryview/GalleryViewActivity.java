@@ -45,7 +45,7 @@ public class GalleryViewActivity extends AppCompatActivity {
         Bundle b=getIntent().getExtras();
         _pager= (ViewPager) findViewById(R.id.pager);
         _closeButton = (ImageView) findViewById(R.id.btn_close);
-        position=b.getInt("selection",0);
+        position=b.getInt("position",0);
         filelist=  b.getStringArrayList("items");
 
 

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.impulsiveweb.galleryview.GalleryView;
 import com.impulsiveweb.galleryview.GalleryViewActivity;
 
 import java.util.ArrayList;
@@ -105,9 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showGallery(){
-        Intent intent = new Intent(this, GalleryViewActivity.class);
-        intent.putExtra("items", paths);
-        startActivity(intent);
+        GalleryView.show(this,paths);
     }
 
 }
