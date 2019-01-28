@@ -30,7 +30,7 @@ Add it in your root build.gradle at the end of repositories:
 ### Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.sheetalkumar105:androidimagevideogallery:1.04'
+	        implementation 'com.github.sheetalkumar105:androidimagevideogallery:1.05'
 	}
 
 ### Step 3. Use where you want to show gallery
