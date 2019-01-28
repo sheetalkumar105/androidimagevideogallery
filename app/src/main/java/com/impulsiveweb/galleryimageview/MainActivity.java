@@ -107,13 +107,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showGallery(){
-        GalleryView.show(this,paths, 0, R.drawable.ic_delete, new ActionCallback(){
+        GalleryView.show(this,paths);
 
-            @Override
-            public void onAction() {
-                Log.e("Action","Done");
-            }
-        });
+//        GalleryView.show(this,paths, 0, new ActionCallback(){
+//
+//            @Override
+//            public void onAction(String path, int position) {
+//                Log.e("Action","Done");
+//            }
+//        });
     }
 
 }

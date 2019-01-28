@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class GalleryView {
 
     public static ActionCallback actionCallback;
-    public static int icon;
 
     public static void show(Context context, ArrayList<String> paths, int position){
         Intent intent = new Intent(context, GalleryViewActivity.class);
@@ -18,9 +17,8 @@ public class GalleryView {
         context.startActivity(intent);
     }
 
-    public static void show(Context context, ArrayList<String> paths, int position, int icon, ActionCallback actionCallback){
+    public static void show(Context context, ArrayList<String> paths, int position, ActionCallback actionCallback){
         GalleryView.actionCallback = actionCallback;
-        GalleryView.icon = icon;
         Intent intent = new Intent(context, GalleryViewActivity.class);
         intent.putExtra("items", paths);
         intent.putExtra("position", position);

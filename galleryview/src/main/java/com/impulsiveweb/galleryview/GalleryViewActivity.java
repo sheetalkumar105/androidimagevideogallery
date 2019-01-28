@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -38,7 +41,8 @@ public class GalleryViewActivity extends AppCompatActivity {
     private GalleryPagerAdapter _adapter;
     ViewPager _pager;
     ImageView _closeButton;
-    ImageView _btn_action;
+
+    int callback;
     public String TAG = GalleryViewActivity.this.getClass().getSimpleName();
 
 
@@ -52,9 +56,9 @@ public class GalleryViewActivity extends AppCompatActivity {
         Bundle b=getIntent().getExtras();
         _pager= (ViewPager) findViewById(R.id.pager);
         _closeButton = (ImageView) findViewById(R.id.btn_close);
-        _btn_action = (ImageView) findViewById(R.id.btn_action);
+
         position=b.getInt("position",0);
-        int callback=b.getInt("callback",0);
+        callback=b.getInt("callback",0);
         filelist=  b.getStringArrayList("items");
 
         _closeButton.setOnClickListener(new View.OnClickListener() {
@@ -65,20 +69,24 @@ public class GalleryViewActivity extends AppCompatActivity {
             }
         });
 
+
+        final ImageView  _btn_action = (ImageView) findViewById(R.id.btn_action);
         if(callback==1){
-            final int sdk = android.os.Build.VERSION.SDK_INT;
-            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                _btn_action.setImageDrawable(ContextCompat.getDrawable(this, GalleryView.icon) );
-            } else {
-                _btn_action.setImageDrawable(ContextCompat.getDrawable(this, GalleryView.icon));
-            }
             _btn_action.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GalleryView.actionCallback.onAction();
+                    GalleryView.actionCallback.onAction( filelist.get(position),position);
+                    filelist.remove(position);
+                    _adapter.notifyDataSetChanged();
+                    if(filelist.size()==0){
+                        _btn_action.setVisibility(View.GONE);
+                    }
                 }
             });
         }else {
+            _btn_action.setVisibility(View.GONE);
+        }
+        if(filelist.size()==0){
             _btn_action.setVisibility(View.GONE);
         }
 
@@ -137,8 +145,8 @@ public class GalleryViewActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onPageSelected(int position) {
-
+            public void onPageSelected(int pos) {
+                position = pos;
             }
 
             @Override
@@ -169,6 +177,11 @@ public class GalleryViewActivity extends AppCompatActivity {
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == ((LinearLayout) object);
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            return POSITION_NONE;
         }
 
         @Override

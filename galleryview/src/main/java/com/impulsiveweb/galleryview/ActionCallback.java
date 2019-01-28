@@ -1,5 +1,5 @@
 package com.impulsiveweb.galleryview;
 
 public interface ActionCallback {
-    void onAction();
+    void onAction(String path, int index);
 }
