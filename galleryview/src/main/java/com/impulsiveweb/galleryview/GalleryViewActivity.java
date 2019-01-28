@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -14,6 +15,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
@@ -35,20 +38,24 @@ public class GalleryViewActivity extends AppCompatActivity {
     private GalleryPagerAdapter _adapter;
     ViewPager _pager;
     ImageView _closeButton;
+    ImageView _btn_action;
     public String TAG = GalleryViewActivity.this.getClass().getSimpleName();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_gallery_view);
         Bundle b=getIntent().getExtras();
         _pager= (ViewPager) findViewById(R.id.pager);
         _closeButton = (ImageView) findViewById(R.id.btn_close);
+        _btn_action = (ImageView) findViewById(R.id.btn_action);
         position=b.getInt("position",0);
+        int callback=b.getInt("callback",0);
         filelist=  b.getStringArrayList("items");
-
-
 
         _closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +64,24 @@ public class GalleryViewActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        if(callback==1){
+            final int sdk = android.os.Build.VERSION.SDK_INT;
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                _btn_action.setImageDrawable(ContextCompat.getDrawable(this, GalleryView.icon) );
+            } else {
+                _btn_action.setImageDrawable(ContextCompat.getDrawable(this, GalleryView.icon));
+            }
+            _btn_action.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GalleryView.actionCallback.onAction();
+                }
+            });
+        }else {
+            _btn_action.setVisibility(View.GONE);
+        }
+
         if(checkWriteExternalPermission())
             _init();
         else

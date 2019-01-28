@@ -2,15 +2,31 @@ package com.impulsiveweb.galleryview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 
 public class GalleryView {
+
+    public static ActionCallback actionCallback;
+    public static int icon;
+
     public static void show(Context context, ArrayList<String> paths, int position){
         Intent intent = new Intent(context, GalleryViewActivity.class);
         intent.putExtra("items", paths);
         intent.putExtra("position", position);
         context.startActivity(intent);
+    }
+
+    public static void show(Context context, ArrayList<String> paths, int position, int icon, ActionCallback actionCallback){
+        GalleryView.actionCallback = actionCallback;
+        GalleryView.icon = icon;
+        Intent intent = new Intent(context, GalleryViewActivity.class);
+        intent.putExtra("items", paths);
+        intent.putExtra("position", position);
+        intent.putExtra("callback", 1);
+        context.startActivity(intent);
+
     }
 
     public static void show(Context context, ArrayList<String> paths){

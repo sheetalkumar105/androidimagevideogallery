@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.impulsiveweb.galleryview.ActionCallback;
 import com.impulsiveweb.galleryview.GalleryView;
 import com.impulsiveweb.galleryview.GalleryViewActivity;
 
@@ -106,7 +107,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showGallery(){
-        GalleryView.show(this,paths);
+        GalleryView.show(this,paths, 0, R.drawable.ic_delete, new ActionCallback(){
+
+            @Override
+            public void onAction() {
+                Log.e("Action","Done");
+            }
+        });
     }
 
 }
